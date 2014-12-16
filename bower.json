@@ -1,0 +1,29 @@
+{
+  "name": "validation-builder-js",
+  "version": "0.1.0",
+  "authors": [
+    "Adriano Di Giovanni <me@adrianodigiovanni.com>"
+  ],
+  "description": "A Javascript Universal Module to build reusable validation patterns",
+  "main": "dist/ValidationBuilder.min.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "javascript",
+    "universal",
+    "module",
+    "validation",
+    "builder"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
