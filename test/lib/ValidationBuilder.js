@@ -21,8 +21,8 @@ module.exports = function () {
       var
         v = vb.isArray().build();
 
-      expect(v.run(null)).to.deep.equal([ false ]);
-      expect(v.run([])).to.deep.equal([ true ]);
+      expect(v.run(null).forAll()).to.be.false();
+      expect(v.run([]).forAll()).to.be.true();
     });
 
     it('#isNull', function () {
@@ -32,8 +32,8 @@ module.exports = function () {
           .isNull()
           .build();
 
-        expect(v.run(null)).to.deep.equal([ true ]);
-        expect(v.run(0)).to.deep.equal([ false ]);
+        expect(v.run(null).forAll()).to.be.true();
+        expect(v.run(0).forAll()).to.be.false();
     });
 
     it('#isUndefined', function () {
@@ -43,8 +43,8 @@ module.exports = function () {
           .isUndefined()
           .build();
 
-        expect(v.run(void 0)).to.deep.equal([ true ]);
-        expect(v.run(0)).to.deep.equal([ false ]);
+        expect(v.run(void 0).forAll()).to.be.true();
+        expect(v.run(0).forAll()).to.be.false();
     });
 
     it('#containsAll', function () {
@@ -52,8 +52,8 @@ module.exports = function () {
       var
         v = vb.containsAll([ 'a', 'b', 'c' ]).build();
 
-      expect(v.run([ 'a', 'b' ])).to.deep.equal([ false ]);
-      expect(v.run([ 'a', 'b', 'c', 'd' ])).to.deep.equal([ true ]);
+      expect(v.run([ 'a', 'b' ]).forAll()).to.be.false();
+      expect(v.run([ 'a', 'b', 'c', 'd' ]).forAll()).to.be.true();
     });
 
     it('#containsAny', function () {
@@ -61,8 +61,23 @@ module.exports = function () {
       var
         v = vb.containsAny([ 'a', 'b', 'c' ]).build();
 
-      expect(v.run([ 'x', 'y' ])).to.deep.equal([ false ]);
-      expect(v.run([ 'b', 'd' ])).to.deep.equal([ true ]);
+      expect(v.run([ 'x', 'y' ]).forAll()).to.be.false();
+      expect(v.run([ 'b', 'd' ]).forAll()).to.be.true();
+    });
+
+    it('#isNull #isUndefined', function () {
+      var
+        v = vb
+          .isNull()
+          .isUndefined()
+          .build(),
+
+        r = v.run(0);
+
+        expect(r.forAll()).to.be.false();
+        expect(r.forAny()).to.be.false();
+        expect(r.forOne('isNull')).to.be.false();
+        expect(r.forOne('isUndefined')).to.be.false();
     });
   });
 };

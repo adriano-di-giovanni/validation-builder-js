@@ -20,24 +20,69 @@
 var
   Invokable = (function (_) {
 
-    function Invokable(fn, args) {
+    function Invokable(name, fn, args) {
+      this._name = name;
       this._fn = fn;
       this._args = _.toArray(args);
     }
 
-    Invokable.prototype.invoke = function (subject) {
+    _.extend(Invokable.prototype, {
+      getName: function () {
+        return this._name;
+      },
+      invoke: function (subject) {
 
-      var
-        args = [ subject ].concat(this._args);
+        var
+          args = [ subject ].concat(this._args);
 
-      return this._fn.apply(null, args);
-    };
+        return this._fn.apply(null, args);
+      }
+    });
 
     return Invokable;
   }(_));
 
 var
-  Validation = (function (_) {
+  Result = (function (_) {
+
+    function Result(invokables, results) {
+      this._invokables = invokables;
+      this._results = results;
+    }
+
+    _.extend(Result.prototype, {
+      forAll: function () {
+        var
+          results = this._results;
+
+        return _(results).reduce(function (memo, result) {
+          return memo && result;
+        }, true);
+      },
+      forAny: function () {
+        var
+          results = this._results;
+
+        return _(results).reduce(function (memo, result) {
+          return memo || result;
+        }, false);
+      },
+      forOne: function (name) {
+        var
+          invokables = this._invokables,
+          results = this._results;
+
+        return _(results).find(function (element, index) {
+          return invokables[index].getName() === name;
+        });
+      }
+    });
+
+    return Result;
+  }(_));
+
+var
+  Validation = (function (_, Result) {
 
     function Validation(invokables) {
       this._invokables = invokables;
@@ -51,12 +96,12 @@ var
           return invokable.invoke(subject);
         });
 
-      return results;
+      return new Result(invokables, results);
     };
 
     return Validation;
 
-  }(_));
+  }(_, Result));
 
 (function (_, ValidationBuilder, Invokable, Validation) {
 
@@ -64,7 +109,7 @@ var
     register: function (name, fn) {
 
       ValidationBuilder.prototype[name] = function () {
-        this._invokables.push(new Invokable(fn, arguments));
+        this._invokables.push(new Invokable(name, fn, arguments));
         return this;
       };
 

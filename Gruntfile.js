@@ -38,6 +38,7 @@ module.exports = function (grunt) {
       dist: {
         src: [
           'lib/Invokable.js',
+          'lib/Result.js',
           'lib/Validation.js',
           'lib/ValidationBuilder.js',
           'lib/validators/containsAll.js',

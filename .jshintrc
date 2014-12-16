@@ -13,7 +13,8 @@
 		"ValidationBuilder": true,
 		"Validation": true,
 		"Invokable": true,
-		"ValidatorRegistry": true
+		"ValidatorRegistry": true,
+		"Result": true
 	},
 	"bitwise": true,
 	"camelcase": true,
