@@ -94,10 +94,6 @@ var
 }(_, ValidationBuilder, Invokable, Validation));
 
 (function (_, ValidationBuilder) {
-  ValidationBuilder.register('isNull', _.isNull);
-}(_, ValidationBuilder));
-
-(function (_, ValidationBuilder) {
   ValidationBuilder.register('containsAll', function (targetArray, compareArray) {
     return _(compareArray).reduce(function (memo, element) {
       return memo && _(targetArray).contains(element);
@@ -111,6 +107,18 @@ var
       return memo || _(targetArray).contains(element);
     }, false);
   });
+}(_, ValidationBuilder));
+
+(function (_, ValidationBuilder) {
+  ValidationBuilder.register('isArray', _.isArray);
+}(_, ValidationBuilder));
+
+(function (_, ValidationBuilder) {
+  ValidationBuilder.register('isNull', _.isNull);
+}(_, ValidationBuilder));
+
+(function (_, ValidationBuilder) {
+  ValidationBuilder.register('isUndefined', _.isUndefined);
 }(_, ValidationBuilder));
 
   return ValidationBuilder;

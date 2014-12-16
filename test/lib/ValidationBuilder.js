@@ -17,6 +17,14 @@ module.exports = function () {
       expect(vb).to.be.an.instanceof(ValidationBuilder);
     });
 
+    it('#isArray', function () {
+      var
+        v = vb.isArray().build();
+
+      expect(v.run(null)).to.deep.equal([ false ]);
+      expect(v.run([])).to.deep.equal([ true ]);
+    });
+
     it('#isNull', function () {
 
       var
@@ -25,6 +33,17 @@ module.exports = function () {
           .build();
 
         expect(v.run(null)).to.deep.equal([ true ]);
+        expect(v.run(0)).to.deep.equal([ false ]);
+    });
+
+    it('#isUndefined', function () {
+
+      var
+        v = vb
+          .isUndefined()
+          .build();
+
+        expect(v.run(void 0)).to.deep.equal([ true ]);
         expect(v.run(0)).to.deep.equal([ false ]);
     });
 
