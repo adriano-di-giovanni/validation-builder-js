@@ -15,7 +15,7 @@
   }
 }(this, function (ValidationBuilder, _) {
 
-  ValidationBuilder.VERSION = '0.1.0';
+  ValidationBuilder.VERSION = '0.0.1';
 
 var
   Invokable = (function (_) {
@@ -139,17 +139,17 @@ var
 }(_, ValidationBuilder, Invokable, Validation));
 
 (function (_, ValidationBuilder) {
-  ValidationBuilder.register('containsAll', function (targetArray, compareArray) {
+  ValidationBuilder.register('containsAll', function (subjectArray, compareArray) {
     return _(compareArray).reduce(function (memo, element) {
-      return memo && _(targetArray).contains(element);
+      return memo && _(subjectArray).contains(element);
     }, true);
   });
 }(_, ValidationBuilder));
 
 (function (_, ValidationBuilder) {
-  ValidationBuilder.register('containsAny', function (targetArray, compareArray) {
+  ValidationBuilder.register('containsAny', function (subjectArray, compareArray) {
     return _(compareArray).reduce(function (memo, element) {
-      return memo || _(targetArray).contains(element);
+      return memo || _(subjectArray).contains(element);
     }, false);
   });
 }(_, ValidationBuilder));

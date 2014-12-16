@@ -1,6 +1,12 @@
 # validation-builder-js
 
-A Javascript Universal Module to build reusable validation patterns
+A Javascript Universal Module to build reusable validation patterns.
+
+This module is fully functional but it is more like a proof of concept due to the lack of validators.
+
+However, you can implement your own validators or plug validators from other libraries in as described [later](#custom_validators).
+
+This module depends on [underscorejs](http://underscorejs.org).
 
 ## Installation
 
@@ -12,7 +18,9 @@ You may want to install `validation-builder-js` using `npm` or `bower`.
 
 ## Basic usage
 
-This package is suitable for use with in [Node.js](#node) and [browsers](#browser).
+This module is suitable for use in [Node.js](#node) and [browser](#browser) environments.
+
+It has been tested for use in Node.js.
 
 It has not been tested on any browser yet.
 
@@ -23,16 +31,17 @@ var
 	ValidationBuilder = require('validation-builder-js');
 
 var
-	v = ValidationBuilder
-		.forge()
+	validation = ValidationBuilder
+		.forge() // creates a new instance of ValidationBuilder
 		.isNull()
 		.isUndefined()
-		.build(),
-	r = v.run(null); // argument to run() is the subject of validation
+		.build() // creates a new instance of Validation
 
-console.log(r.forAll()); // false
-console.log(r.forAny()); // true
-console.log(r.forOne('isNull')); // true
+	result = validation.run(null); // argument to run() is the subject of validation
+
+console.log(result.forAll()); // false
+console.log(result.forAny()); // true
+console.log(result.forOne('isNull')); // true
 ```
 
 ### Browser <a name="browser"></a>
@@ -42,16 +51,16 @@ console.log(r.forOne('isNull')); // true
 <script src="ValidationBuilder.min.js"></script>
 <script>
 	var
-		v = ValidationBuilder
+		validation = ValidationBuilder
 			.forge()
 			.isNull()
 			.isUndefined()
 			.build(),
-		r = v.run(null); // argument to run() is the subject of validation
+		result = validation.run(null); // argument to run() is the subject of validation
 
-	console.log(r.forAll()); // false
-	console.log(r.forAny()); // true
-	console.log(r.forOne('isNull')); // true
+	console.log(result.forAll()); // false
+	console.log(result.forAny()); // true
+	console.log(result.forOne('isNull')); // true
 </script>
 ```
 
@@ -69,12 +78,12 @@ console.log(r.forOne('isNull')); // true
 var
 	subjectArray = [ 'a', 'b', 'c' ],
 	compareArray = [ 'a' ],
-	v = ValidationBuilder
+	validation = ValidationBuilder
 		.forge()
 		.containsAll(compareArray),
-	r = v.run(subjectArray); // does subjectArray contain all elements in compareArray?
+	result = validation.run(subjectArray); // does subjectArray contain all elements in compareArray?
 
-console.log(r.forAll()); // true
+console.log(result.forAll()); // true
 ```
 
 ### containsAny <a name="containsAny"></a>
@@ -83,15 +92,15 @@ console.log(r.forAll()); // true
 var
 	subjectArray = [ 'a', 'b', 'c' ],
 	compareArray = [ 'a' ],
-	v = ValidationBuilder
+	validation = ValidationBuilder
 		.forge()
 		.containsAny(compareArray),
-	r = v.run(subjectArray); // does subjectArray contain any of the elements in compareArray?
+	result = validation.run(subjectArray); // does subjectArray contain any of the elements in compareArray?
 
-console.log(r.forAll()); // true
+console.log(result.forAll()); // true
 ```
 
-## Custom validators
+## Custom validators <a name="custom_validators"></a>
 
 You can implement your own validator and register it to `ValidationBuilder` as follows:
 
@@ -109,3 +118,17 @@ Your validator should meet following requirements
 * validate any argument;
 * only return a boolean value;
 * not to throw any error.
+
+### Plug validators from other libraries in
+
+```javascript
+ValidationBuilder.register('isNumber', _.isNumber);
+
+var
+	v = ValidationBuilder
+		.forge()
+		.isNumber()
+		.build();
+
+console.log(v.run(10).forAll()); // true
+```
