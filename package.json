@@ -1,6 +1,6 @@
 {
   "name": "validation-builder-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Javascript Universal Module to build reusable validation patterns",
   "main": "dist/ValidationBuilder.js",
   "scripts": {

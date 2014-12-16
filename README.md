@@ -68,9 +68,6 @@ console.log(result.forOne('isNull')); // true
 
 * [containsAll(compareArray)](#containsAll)
 * [containsAny(compareArray)](#containsAny)
-* [isArray()](#isArray)
-* [isNull()](#isNull)
-* [isUndefined()](#isUndefined)
 
 ### containsAll <a name="containsAll"></a>
 
@@ -99,6 +96,27 @@ var
 
 console.log(result.forAll()); // true
 ```
+
+## Proxied validators
+
+ValidationBuilder proxies to Underscore.js to provide 16 validators.
+
+* [isArguments](http://underscorejs.org/#isArguments)
+* [isArray](http://underscorejs.org/#isArray)
+* [isBoolean](http://underscorejs.org/#isBoolean)
+* [isDate](http://underscorejs.org/#isDate)
+* [isElement](http://underscorejs.org/#isElement)
+* [isEmpty](http://underscorejs.org/#isEmpty)
+* [isEqual](http://underscorejs.org/#isEqual)
+* [isFinite](http://underscorejs.org/#isFinite)
+* [isFunction](http://underscorejs.org/#isFunction)
+* [isNaN](http://underscorejs.org/#isNaN)
+* [isNull](http://underscorejs.org/#isNull)
+* [isNumber](http://underscorejs.org/#isNumber)
+* [isObject](http://underscorejs.org/#isObject)
+* [isRegExp](http://underscorejs.org/#isRegExp)
+* [isString](http://underscorejs.org/#isString)
+* [isUndefined](http://underscorejs.org/#isUndefined)
 
 ## Custom validators <a name="custom_validators"></a>
 

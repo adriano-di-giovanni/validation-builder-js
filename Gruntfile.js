@@ -43,9 +43,7 @@ module.exports = function (grunt) {
           'lib/ValidationBuilder.js',
           'lib/validators/containsAll.js',
           'lib/validators/containsAny.js',
-          'lib/validators/isArray.js',
-          'lib/validators/isNull.js',
-          'lib/validators/isUndefined.js',
+          'lib/validators/underscore.js'
         ],
         dest: 'dist/ValidationBuilder.js'
       }

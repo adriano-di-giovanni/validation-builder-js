@@ -15,7 +15,7 @@
   }
 }(this, function (ValidationBuilder, _) {
 
-  ValidationBuilder.VERSION = '0.0.1';
+  ValidationBuilder.VERSION = '0.0.2';
 
 var
   Invokable = (function (_) {
@@ -155,15 +155,30 @@ var
 }(_, ValidationBuilder));
 
 (function (_, ValidationBuilder) {
-  ValidationBuilder.register('isArray', _.isArray);
-}(_, ValidationBuilder));
 
-(function (_, ValidationBuilder) {
-  ValidationBuilder.register('isNull', _.isNull);
-}(_, ValidationBuilder));
+  var
+    validators = [
+      'isArguments',
+      'isArray',
+      'isBoolean',
+      'isDate',
+      'isElement',
+      'isEmpty',
+      'isEqual',
+      'isFinite',
+      'isFunction',
+      'isNaN',
+      'isNull',
+      'isNumber',
+      'isObject',
+      'isRegExp',
+      'isString',
+      'isUndefined'
+    ];
 
-(function (_, ValidationBuilder) {
-  ValidationBuilder.register('isUndefined', _.isUndefined);
+  _(validators).each(function (validator) {
+    ValidationBuilder.register(validator, _[validator]);
+  });
 }(_, ValidationBuilder));
 
   return ValidationBuilder;
